@@ -83,9 +83,11 @@ test: makedir $(TARGET_TEST)
 	@echo "🏃 Running Tests..."
 	@./$(TARGET_TEST)
 
+VMFILE := SimpleAdd.vm
+
 .PHONY: run
 run: $(TARGET)
-	@./$(TARGET)
+	@./run.sh data/$(VMFILE) && cat out.asm # run file and observe result
 .PHONY: clean
 clean:
 	@echo CLEAN $(CLEAN_LIST)
