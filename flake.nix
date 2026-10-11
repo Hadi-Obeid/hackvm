@@ -16,16 +16,18 @@
             pkgs.gcc 
             pkgs.gnumake
             pkgs.unity-test
+            pkgs.pkg-config
           ];
           buildInputs = [
             pkgs.gcc 
             pkgs.gnumake
             pkgs.unity-test
+            pkgs.pkg-config
           ];
 
           shellHook = ''
             export UNITY_INCLUDE_DIR="${pkgs.unity-test}/include/unity"
-            export UNITY_SRC_DIR="${pkgs.unity-test}/src/"
+            export UNITY_SRC_DIR="${pkgs.unity-test}"
             echo "⚡ Unity testing environment loaded! ⚡"
             echo "Unity header location: $UNITY_INCLUDE_DIR"
           '';
