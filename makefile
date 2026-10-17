@@ -1,14 +1,16 @@
 # tool macros
 CC ?= gcc
+CXX ?= g++
 
 # --- FIX: Fetch BOTH compilation flags (-I) and linker flags (-L / -lunity) ---
 UNITY_CFLAGS := $(shell pkg-config --cflags unity 2>/dev/null)
 UNITY_LIBS   := $(shell pkg-config --libs unity 2>/dev/null)
 
 # Fallback defaults if pkg-config flags are blank outside Nix
-CFLAGS := -Wall -O1 -Wpedantic $(if $(UNITY_CFLAGS),$(UNITY_CFLAGS),-I$(UNITY_INCLUDE_DIR)) -Isrc/ -Itest/
+CFLAGS := -Wall -O1 -Wpedantic $(if $(UNITY_CFLAGS),$(UNITY_CFLAGS),-I$(UNITY_INCLUDE_DIR))
 LDFLAGS := $(if $(UNITY_LIBS),$(UNITY_LIBS),-lunity)
 
+CXXFLAGS := 
 DBGFLAGS := -g
 COBJFLAGS := $(CFLAGS) -c
 
@@ -83,11 +85,6 @@ test: makedir $(TARGET_TEST)
 	@echo "🏃 Running Tests..."
 	@./$(TARGET_TEST)
 
-VMFILE := SimpleAdd.vm
-
-.PHONY: run
-run: $(TARGET)
-	@./run.sh data/$(VMFILE) && cat out.asm # run file and observe result
 .PHONY: clean
 clean:
 	@echo CLEAN $(CLEAN_LIST)

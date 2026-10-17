@@ -1,5 +1,5 @@
 #define ALIGN 16
-#define POOL_SIZE 1024
+#define POOL_SIZE 4096
 
 size_t align_up(size_t n, size_t a);
 void *bump_alloc(size_t size); 
