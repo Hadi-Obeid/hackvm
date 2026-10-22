@@ -7,7 +7,7 @@ UNITY_CFLAGS := $(shell pkg-config --cflags unity 2>/dev/null)
 UNITY_LIBS   := $(shell pkg-config --libs unity 2>/dev/null)
 
 # Fallback defaults if pkg-config flags are blank outside Nix
-CFLAGS := -Wall -O1 -Wpedantic $(if $(UNITY_CFLAGS),$(UNITY_CFLAGS),-I$(UNITY_INCLUDE_DIR))
+CFLAGS := -Wall -O0 -Wpedantic -I./src/ $(if $(UNITY_CFLAGS),$(UNITY_CFLAGS),-I$(UNITY_INCLUDE_DIR))
 LDFLAGS := $(if $(UNITY_LIBS),$(UNITY_LIBS),-lunity)
 
 CXXFLAGS := 
@@ -94,3 +94,7 @@ clean:
 distclean:
 	@echo CLEAN $(DISTCLEAN_LIST)
 	@rm -rf $(BIN_PATH) $(OBJ_PATH) $(DBG_PATH) $(TEST_PATH)
+
+.PHONY: run
+run:
+	./run.sh ./data/SimpleAdd.vm
